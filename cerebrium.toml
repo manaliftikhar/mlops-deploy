@@ -1,0 +1,19 @@
+[cerebrium.deployment]
+name = "image-classifier"
+python_version = "3.9"
+cuda_version = "11.8"
+hardware = "GPU_T4"
+min_replicas = 1
+max_replicas = 5
+dockerfile = "Dockerfile"
+
+[cerebrium.deployment.env]
+# Environment variables can be set here if needed
+
+[cerebrium.deployment.predict]
+# Main prediction function
+function_name = "predict"
+
+[cerebrium.deployment.healthcheck]
+# Health check function
+function_name = "health_check" 
