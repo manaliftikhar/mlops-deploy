@@ -1,0 +1,29 @@
+name: Docker Build Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Build Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        push: false
+        load: true
+        tags: mlops-project:test
+
+    - name: Test Docker image
+      run: |
+        docker run --rm mlops-project:test python -c "import torch; import onnxruntime; import PIL; print('Dependencies loaded successfully!')" 
